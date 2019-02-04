@@ -33,10 +33,9 @@ class App extends Component {
 
   calculateStandartMethod(){
     axios.get('http://10.0.75.1:8084/nba/calc/calcUsage/STD').then((response) => {
-      let gameDateRostersResult = response.data;
 
       this.setState({
-        gameDateRosters : gameDateRostersResult
+        gameDateRosters :  response.data
       })
     });
   }
@@ -58,7 +57,12 @@ class App extends Component {
           <td>{player.id}</td>
           <td>{player.name}</td>
           <td>{player.avgPts}</td>
-          <td>PG:{player.isPG} SG:{player.isSG}</td>
+          <td> {player.isPG ==1 ? ('PG  ') : ('')}
+               {player.isSG ==1 ? ('SG  ') : ('')}
+               {player.isSF ==1 ? ('SF  ') : ('')}
+               {player.isPF ==1 ? ('PF  ') : ('')}
+               {player.isC ==1 ? ('C  ') : ('')} 
+          </td>
           <td>
             <Button color="success" size="sm" className="mr-2">Edit</Button>
             <Button color="danger" size="sm">Delete</Button>
@@ -88,7 +92,7 @@ class App extends Component {
         <Button color="primary" className="float-right" onClick={this.toggleNewPlayerModal.bind(this)}>Add Player</Button>
         {' '}
         <Button color="secondary"  className="float-md-right" onClick={this.calculateStandartMethod.bind(this)}>Standart Calculate</Button>{' '}
-        <Button color="primary" className="float-right" onClick={this.toggleNewPlayerModal.bind(this)}>OPTA Calculate</Button>
+        <Button color="primary" className="float-right" onClick={this.calculateOptaMethod.bind(this)}>OPTA Calculate</Button>
 
         <Modal isOpen={this.state.newPlayerModal} toggle={this.toggleNewPlayerModal.bind(this)} >
           <ModalHeader toggle={this.toggleNewPlayerModal.bind(this)}>Add New Player</ModalHeader>
