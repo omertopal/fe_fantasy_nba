@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-import {Table, Button} from 'reactstrap';
+import {Modal, ModalHeader, ModalBody, ModalFooter, Table, Button, FormGroup, Label, Input} from 'reactstrap';
 import axios from 'axios';
 
 class App extends Component {
 
   state = {
-    players : []
+    players : [],
+    newPlayerData : {
+      playerName : '',
+      avgPoints : ''
+    },
+    newPlayerModal : false
   }
 
   componentWillMount(){
@@ -17,7 +22,15 @@ class App extends Component {
   }
 
 
+  toggleNewPlayerModal(){
+    this.setState({
+      newPlayerModal : ! this.state.newPlayerModal
+    });
+  }
 
+  addPlayer (){
+
+  }
   render() {
     let players = this.state.players.map((player) => {
       return (
@@ -36,6 +49,36 @@ class App extends Component {
 
     return (
       <div className="App container">
+
+        <Button color="primary" className="float-right" onClick={this.toggleNewPlayerModal.bind(this)}>Add Player</Button>
+        <Modal isOpen={this.state.newPlayerModal} toggle={this.toggleNewPlayerModal.bind(this)} >
+          <ModalHeader toggle={this.toggleNewPlayerModal.bind(this)}>Add New Player</ModalHeader>
+          <ModalBody>
+          <FormGroup>
+            <Label for="playerName">Player Name</Label>
+            <Input id="playerName" value={this.state.newPlayerData.playerName} onChange={(e)=> {
+
+              let { newPlayerData } = this.state;
+              newPlayerData.playerName = e.target.value;
+              this.setState = ({ newPlayerData});
+
+            }}/>
+          </FormGroup>
+          <FormGroup>
+            <Label for="avgPoints">Avg Points</Label>
+            <Input id="avgPoints" value={this.state.newPlayerData.avgPoints} onChange={(e)=> {
+              let {newPlayerData} = this.state;
+              newPlayerData.avgPoints = e.target.value;
+              this.setState = ({ newPlayerData})
+            }}/>
+          </FormGroup>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.addPlayer.bind(this)}>Add Player</Button>{' '}
+            <Button color="secondary" onClick={this.toggleNewPlayerModal.bind(this)}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
+
         <Table>
           <thead>
             <tr>
