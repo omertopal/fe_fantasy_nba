@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import {Modal, ModalHeader, ModalBody, ModalFooter, Table, Button, FormGroup, Label, Input} from 'reactstrap';
+import { Spinner } from 'reactstrap';
 import axios from 'axios';
 
 class App extends Component {
 
   state = {
+    gameDateRosters : [],
     players : [],
     newPlayerData : {
       playerName : '',
@@ -17,6 +19,24 @@ class App extends Component {
     axios.get('http://10.0.75.1:8084/nba/players/myPlayers').then((response) => {
       this.setState({
         players : response.data
+      })
+    });
+  }
+
+  calculateOptaMethod(){
+    axios.get('http://10.0.75.1:8084/nba/calc/calcUsage/OPTA').then((response) => {
+      this.setState({
+        gameDateRosters : response.data
+      })
+    });
+  }
+
+  calculateStandartMethod(){
+    axios.get('http://10.0.75.1:8084/nba/calc/calcUsage/STD').then((response) => {
+      let gameDateRostersResult = response.data;
+
+      this.setState({
+        gameDateRosters : gameDateRostersResult
       })
     });
   }
@@ -47,10 +67,29 @@ class App extends Component {
       )
     });
 
+
+    let gameDateRosters = this.state.gameDateRosters.map((rosterOfDay) => {
+      return (
+        <tr key={rosterOfDay.gameDate}>
+          <td>{rosterOfDay.gameDate}</td>
+          <td>{rosterOfDay.pgModel ? rosterOfDay.pgModel.name : ('')}</td>
+          <td>{rosterOfDay.sgModel ? rosterOfDay.sgModel.name : ('') }</td>
+          <td>{rosterOfDay.sfModel ? rosterOfDay.sfModel.name : ('') }</td>
+          <td>{rosterOfDay.pfModel ? rosterOfDay.pfModel.name : ('') }</td>
+          <td>{rosterOfDay.cModel ? rosterOfDay.cModel.name : ('') }</td>
+          <td>{rosterOfDay.utModel ? rosterOfDay.utModel.name : ('') }</td>
+        </tr>
+      )
+    });
+
     return (
       <div className="App container">
 
         <Button color="primary" className="float-right" onClick={this.toggleNewPlayerModal.bind(this)}>Add Player</Button>
+        {' '}
+        <Button color="secondary"  className="float-md-right" onClick={this.calculateStandartMethod.bind(this)}>Standart Calculate</Button>{' '}
+        <Button color="primary" className="float-right" onClick={this.toggleNewPlayerModal.bind(this)}>OPTA Calculate</Button>
+
         <Modal isOpen={this.state.newPlayerModal} toggle={this.toggleNewPlayerModal.bind(this)} >
           <ModalHeader toggle={this.toggleNewPlayerModal.bind(this)}>Add New Player</ModalHeader>
           <ModalBody>
@@ -91,6 +130,22 @@ class App extends Component {
           </thead>
           <tbody>
             {players}
+          </tbody>
+        </Table>
+        <Table>
+          <thead>
+            <tr>
+              <th>Game Date</th>
+              <th>Point Guard</th>
+              <th>Shooting Guard</th>
+              <th>Small Forward</th>
+              <th>Power Forward</th>
+              <th>Center</th>
+              <th>Util</th>
+            </tr>
+          </thead>
+          <tbody>
+            {gameDateRosters}
           </tbody>
         </Table>
       </div>
