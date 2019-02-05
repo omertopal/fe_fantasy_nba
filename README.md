@@ -1,3 +1,18 @@
+How to run on local environment
+
+git clone https://github.com/omertopal/fe_fantasy_nba.git
+
+git checkout master
+
+cd into project directory 
+
+run command : npm start 
+
+react fe URL : http://localhost:3000/
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
