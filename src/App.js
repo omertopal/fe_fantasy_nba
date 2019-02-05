@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   componentWillMount(){
-    axios.get('http://10.0.75.1:8084/nba/players/myPlayers').then((response) => {
+    axios.get('http://localhost:8084/nba/players/myPlayers').then((response) => {
       this.setState({
         players : response.data
       })
@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   calculateOptaMethod(){
-    axios.get('http://10.0.75.1:8084/nba/calc/calcUsage/OPTA').then((response) => {
+    axios.get('http://localhost:8084/nba/calc/calcUsage/OPTA').then((response) => {
       this.setState({
         gameDateRosters : response.data
       })
@@ -32,7 +32,7 @@ class App extends Component {
   }
 
   calculateStandartMethod(){
-    axios.get('http://10.0.75.1:8084/nba/calc/calcUsage/STD').then((response) => {
+    axios.get('http://localhost:8084/nba/calc/calcUsage/STD').then((response) => {
 
       this.setState({
         gameDateRosters :  response.data
@@ -61,7 +61,7 @@ class App extends Component {
                {player.isSG ==1 ? ('SG  ') : ('')}
                {player.isSF ==1 ? ('SF  ') : ('')}
                {player.isPF ==1 ? ('PF  ') : ('')}
-               {player.isC ==1 ? ('C  ') : ('')} 
+               {player.isC ==1 ? ('C  ') : ('')}
           </td>
           <td>
             <Button color="success" size="sm" className="mr-2">Edit</Button>
