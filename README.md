@@ -1,4 +1,5 @@
 How to run on local environment
+
 git clone https://github.com/omertopal/fe_fantasy_nba.git
 git checkout master
 
