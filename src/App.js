@@ -56,9 +56,7 @@ class App extends Component {
     let players = this.state.players.map((player) => {
       return (
         <tbody>
-          <Player id={player.id} name={player.name} avgPts={player.avgPts} isPG ={player.isPG}
-                  isSG ={player.isSG} isSF ={player.isSF} isPF ={player.isPF} isC ={player.isC} />
-
+          <Player  player={player}/>
         </tbody>
       )
     });
@@ -67,8 +65,7 @@ class App extends Component {
     let gameDateRosters = this.state.gameDateRosters.map((rosterOfDay) => {
       return (
         <tbody>
-          <GameDateRoster gameDate={rosterOfDay.gameDate} pgModel={rosterOfDay.pgModel} sgModel={rosterOfDay.sgModel} sfModel={rosterOfDay.sfModel}
-                          pfModel={rosterOfDay.pfModel} cModel={rosterOfDay.cModel} utModel={rosterOfDay.utModel}/>
+          <GameDateRoster gameDateRoster = {rosterOfDay}/>
         </tbody>
       )
     });

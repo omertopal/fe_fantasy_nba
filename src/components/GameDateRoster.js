@@ -8,16 +8,18 @@ class GameDateRoster extends Component{
   }
 
   render(){
+
+    var {gameDate,pgModel,sgModel,sfModel,pfModel,cModel,isPF,utModel} = this.props.gameDateRoster;
     return(
 
-      <tr key={this.props.gameDate}>
-        <td>{this.props.gameDate}</td>
-        <td>{this.props.pgModel ? this.props.pgModel.name : ('')}</td>
-        <td>{this.props.sgModel ? this.props.sgModel.name : ('') }</td>
-        <td>{this.props.sfModel ? this.props.sfModel.name : ('') }</td>
-        <td>{this.props.pfModel ? this.props.pfModel.name : ('') }</td>
-        <td>{this.props.cModel ? this.props.cModel.name : ('') }</td>
-        <td>{this.props.utModel ? this.props.utModel.name : ('') }</td>
+      <tr key={gameDate}>
+        <td>{gameDate}</td>
+        <td>{pgModel ? pgModel.name : ('')}</td>
+        <td>{sgModel ? sgModel.name : ('') }</td>
+        <td>{sfModel ? sfModel.name : ('') }</td>
+        <td>{pfModel ? pfModel.name : ('') }</td>
+        <td>{cModel ? cModel.name : ('') }</td>
+        <td>{utModel ? utModel.name : ('') }</td>
       </tr>
 
     )
