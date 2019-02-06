@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Modal, ModalHeader, ModalBody, ModalFooter, Table, Button, FormGroup, Label, Input} from 'reactstrap';
 import { Spinner } from 'reactstrap';
+import Player from './components/Player';
+import GameDateRoster from './components/GameDateRoster';
 import axios from 'axios';
 
 class App extends Component {
@@ -53,36 +55,21 @@ class App extends Component {
   render() {
     let players = this.state.players.map((player) => {
       return (
-        <tr key={player.id}>
-          <td>{player.id}</td>
-          <td>{player.name}</td>
-          <td>{player.avgPts}</td>
-          <td> {player.isPG ==1 ? ('PG  ') : ('')}
-               {player.isSG ==1 ? ('SG  ') : ('')}
-               {player.isSF ==1 ? ('SF  ') : ('')}
-               {player.isPF ==1 ? ('PF  ') : ('')}
-               {player.isC ==1 ? ('C  ') : ('')}
-          </td>
-          <td>
-            <Button color="success" size="sm" className="mr-2">Edit</Button>
-            <Button color="danger" size="sm">Delete</Button>
-          </td>
-        </tr>
+        <tbody>
+          <Player id={player.id} name={player.name} avgPts={player.avgPts} isPG ={player.isPG}
+                  isSG ={player.isSG} isSF ={player.isSF} isPF ={player.isPF} isC ={player.isC} />
+
+        </tbody>
       )
     });
 
 
     let gameDateRosters = this.state.gameDateRosters.map((rosterOfDay) => {
       return (
-        <tr key={rosterOfDay.gameDate}>
-          <td>{rosterOfDay.gameDate}</td>
-          <td>{rosterOfDay.pgModel ? rosterOfDay.pgModel.name : ('')}</td>
-          <td>{rosterOfDay.sgModel ? rosterOfDay.sgModel.name : ('') }</td>
-          <td>{rosterOfDay.sfModel ? rosterOfDay.sfModel.name : ('') }</td>
-          <td>{rosterOfDay.pfModel ? rosterOfDay.pfModel.name : ('') }</td>
-          <td>{rosterOfDay.cModel ? rosterOfDay.cModel.name : ('') }</td>
-          <td>{rosterOfDay.utModel ? rosterOfDay.utModel.name : ('') }</td>
-        </tr>
+        <tbody>
+          <GameDateRoster gameDate={rosterOfDay.gameDate} pgModel={rosterOfDay.pgModel} sgModel={rosterOfDay.sgModel} sfModel={rosterOfDay.sfModel}
+                          pfModel={rosterOfDay.pfModel} cModel={rosterOfDay.cModel} utModel={rosterOfDay.utModel}/>
+        </tbody>
       )
     });
 
@@ -132,9 +119,8 @@ class App extends Component {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
-            {players}
-          </tbody>
+          {players}
+
         </Table>
         <Table>
           <thead>
@@ -148,9 +134,8 @@ class App extends Component {
               <th>Util</th>
             </tr>
           </thead>
-          <tbody>
-            {gameDateRosters}
-          </tbody>
+          {gameDateRosters}
+
         </Table>
       </div>
     );
